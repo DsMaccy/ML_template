@@ -9,6 +9,10 @@ from keras.losses import categorical_crossentropy
 from keras.optimizers import SGD
 import json
 
+from models.FeedForwardNNs import autoencoder
+
+
+"""
 
 print("Initializing Model")
 
@@ -18,15 +22,15 @@ print("Setting Up Model")
 
 in_dim = (1, 100)
 out_dim = (1, 10)
-hid_dim = (1, 64)
+_hid_dim = (1, 64)
 
 # Setup first layer (inputs -> hidden layer)
-layer1 = Dense(units=hid_dim[1], input_dim=in_dim[1])
+layer1 = Dense(units=_hid_dim[1], input_dim=in_dim[1])
 model.add(layer1)
 model.add(Activation('relu'))
 
 # Setup second layer (hidden -> output layer)
-layer2 = Dense(units=out_dim[1], input_dim=hid_dim[1])
+layer2 = Dense(units=out_dim[1], input_dim=_hid_dim[1])
 model.add(layer2)
 model.add(Activation('softmax'))
 
@@ -38,6 +42,27 @@ print("Compiling Model")
 model.compile(loss=categorical_crossentropy, 
         optimizer=SGD(lr=0.01, momentum=0.9, nesterov=True))
 
+"""
+
+"""
+Possible Activation Functions
+    elu
+    hard_sigmoid
+    linear
+    relu
+    selu
+    sigmoid             
+    softmax
+    softplus
+    softsign
+    tanh
+"""
+
+in_dim = (1, 10)
+out_dim = (1, 10)
+model = autoencoder.genModel(
+        [in_dim[1], 5, out_dim[1]],  
+        ["sigmoid" for i in range(2)] )
 
 
 
